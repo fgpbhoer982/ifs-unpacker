@@ -1,4 +1,5 @@
-# ifs-nifs
+## Information 
+This .ifs (nifs) is tencent games proprietary file archive 
 
 ## Notice 
 This project currently under development, it's not actual and completed code!
