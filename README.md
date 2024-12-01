@@ -1,8 +1,8 @@
-## Information 
-This .ifs (nifs) is tencent games proprietary file archive 
+Information
+The .ifs (or nifs) file format is a proprietary archive used by Tencent Games.
 
-## Notice 
-This project currently under development, it's not actual and completed code!
+Notice
+This project is currently in development and does not represent the final, complete version of the code.
 
-## Important 
-it's not actual unpacker, current prototype or testing, we are not fully understand exact file structure of tencent .ifs (nifs) archive 
+Important
+This is not a fully functional unpacker. The current prototype is in testing, and we do not yet fully understand the exact file structure of Tencent’s .ifs (or nifs) archive format.
