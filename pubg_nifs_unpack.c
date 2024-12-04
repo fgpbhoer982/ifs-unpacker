@@ -280,7 +280,7 @@ int main(int argc, const char *argv[]) {
 	printf("This tool extract tencent games .ifs (nifs) archive!\n");
 	printf("Developed by halloweeks\n");
 	printf("Contact: https://t.me/halloweeks\n");
-	printf("If you have an problem please open issue on github: \nhttps://github.com/halloweeks/pubg-mobile-unpacker/issues/\n\n");
+	printf("If you have an problem please open issue on github: \nhttps://github.com/halloweeks/ifs-unpacker/issues\n\n");
 	
 	clock_t start_time = clock();
 	
