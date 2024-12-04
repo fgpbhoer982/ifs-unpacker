@@ -269,55 +269,6 @@ unsigned int ZLIB_decompress(unsigned char *InData, unsigned int InSize, unsigne
 	return strm.total_out;
 }
 
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <openssl/evp.h>
-
-void handleErrors(const char *msg) {
-    perror(msg);
-    exit(EXIT_FAILURE);
-}
-
-/**
- * DecryptData
- * 
- * Decrypts data encrypted with AES-192 in CTR mode.
- * 
- * @param InData  Pointer to the input (encrypted) data.
- * @param InSize  Size of the input data in bytes.
- * @param OutData Pointer to the output (decrypted) buffer (must be allocated by the caller).
- * @param key     Pointer to the AES-192 key (24 bytes).
- * @param iv      Pointer to the AES initialization vector (16 bytes).
- * @return        Size of the decrypted data in bytes.
- */
-uint32_t DecryptData(const uint8_t *InData, uint32_t InSize, uint8_t *OutData, uint8_t *key, uint8_t *iv) {
-    EVP_CIPHER_CTX *ctx = EVP_CIPHER_CTX_new();
-    if (!ctx)
-        handleErrors("Failed to create EVP context");
-
-    // Initialize the decryption operation with AES-192-CTR
-    if (EVP_DecryptInit_ex(ctx, EVP_aes_192_ctr(), NULL, key, iv) != 1)
-        handleErrors("Failed to initialize AES-192-CTR decryption");
-
-    int out_len = 0, total_len = 0;
-
-    // Decrypt the input data
-    if (EVP_DecryptUpdate(ctx, OutData, &out_len, InData, InSize) != 1)
-        handleErrors("Decryption failed in EVP_DecryptUpdate");
-    total_len += out_len;
-
-    // Finalize decryption (optional for CTR mode, included for completeness)
-    if (EVP_DecryptFinal_ex(ctx, OutData + total_len, &out_len) != 1)
-        handleErrors("Decryption failed in EVP_DecryptFinal");
-    total_len += out_len;
-
-    // Clean up
-    EVP_CIPHER_CTX_free(ctx);
-
-    return total_len;
-}
-
 int main(int argc, const char *argv[]) {
 	if (argc != 2) {
 		fprintf(stderr, "Usage: ./%s <file>\n", base_name(argv[0]));
