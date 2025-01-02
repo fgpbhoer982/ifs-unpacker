@@ -9,5 +9,5 @@ gcc pubg_nifs_unpack.c -o ifs_unpack -lz
 
 ## Usage 
 ```
-./ifs_unpack ..._dyncures.ifs
+./ifs_unpack ...dyncures.ifs
 ```
