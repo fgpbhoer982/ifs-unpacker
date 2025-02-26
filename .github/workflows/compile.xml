@@ -1,0 +1,29 @@
+name: C Compile Workflow
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential zlib1g-dev  # 添加 zlib 开发库
+
+    - name: Compile C Code
+      run: gcc -o pubg_nifs_unpack pubg_nifs_unpack.c -lz  # 链接 zlib 库
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: compiled-binary
+        path: pubg_nifs_unpack
