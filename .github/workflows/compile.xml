@@ -1,29 +1,34 @@
-name: C Compile Workflow
+name: C/C++ CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main ]  # 监听 main 分支的 push 事件
   pull_request:
-    branches: [ main ]
+    branches: [ main ]  # 监听 main 分支的 pull_request 事件
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # 使用最新的 Ubuntu 环境
 
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v4
+      # 1. 检出代码
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Install Dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y build-essential zlib1g-dev  # 添加 zlib 开发库
+      # 2. 安装依赖
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential zlib1g-dev  # 安装编译工具链和 zlib 库
 
-    - name: Compile C Code
-      run: gcc -o pubg_nifs_unpack pubg_nifs_unpack.c -lz  # 链接 zlib 库
+      # 3. 编译代码
+      - name: Compile C/C++ code
+        run: |
+          gcc -o pubg_nifs_unpack pubg_nifs_unpack.c -lz  # 编译并链接 zlib 库
 
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: compiled-binary
-        path: pubg_nifs_unpack
+      # 4. 上传编译结果
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: compiled-binary
+          path: pubg_nifs_unpack  # 上传编译后的可执行文件
