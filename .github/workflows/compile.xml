@@ -2,13 +2,13 @@ name: C/C++ CI
 
 on:
   push:
-    branches: [ main ]  # 监听 main 分支的 push 事件
+    branches: [ main ]
   pull_request:
-    branches: [ main ]  # 监听 main 分支的 pull_request 事件
+    branches: [ main ]
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # 使用最新的 Ubuntu 环境
+    runs-on: ubuntu-latest
 
     steps:
       # 1. 检出代码
@@ -19,16 +19,16 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential zlib1g-dev  # 安装编译工具链和 zlib 库
+          sudo apt-get install -y build-essential zlib1g-dev
 
       # 3. 编译代码
       - name: Compile C/C++ code
         run: |
-          gcc -o pubg_nifs_unpack pubg_nifs_unpack.c -lz  # 编译并链接 zlib 库
+          gcc -o pubg_nifs_unpack pubg_nifs_unpack.c -lz
 
       # 4. 上传编译结果
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: compiled-binary
-          path: pubg_nifs_unpack  # 上传编译后的可执行文件
+          path: pubg_nifs_unpack
